@@ -25,7 +25,7 @@ async function showInitialCupcakes(){
 
     for (let cupcakeData of response.data.cupcakes){
         let newCupcake = $(generateCupcakeHTML(cupcakeData));
-        $('#cupcake-list').append(newCupcake);
+        $('#cupcakes-list').append(newCupcake);
     }
 }
 /** handle form for adding of new cupcakes */
