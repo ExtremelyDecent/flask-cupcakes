@@ -6,14 +6,12 @@ function generateCupcakeHTML(cupcake){
     return`
     <div data-cupcake-id = ${cupcake.id}>
         <li>
-            ${cupcake.flavor} | ${cupcake.size} | ${cupcake.rating}
+            ${cupcake.flavor} / ${cupcake.size} / ${cupcake.rating}
             <button class = "delete-button">X</button>
         </li>
         <img class = "Cupcake-img"
             src="${cupcake.image}"
             alt = "(no image provided)">
-    
-    
     </div>    
     `;
 }
@@ -25,7 +23,7 @@ async function showInitialCupcakes(){
 
     for (let cupcakeData of response.data.cupcakes){
         let newCupcake = $(generateCupcakeHTML(cupcakeData));
-        $('#cupcakes-list').append(newCupcake);
+        $("#cupcakes-list").append(newCupcake);
     }
 }
 /** handle form for adding of new cupcakes */

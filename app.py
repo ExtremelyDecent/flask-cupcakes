@@ -1,10 +1,13 @@
 """Flask app for Cupcakes"""
 from flask import Flask, request, jsonify, render_template
 
+from flask_cors import CORS
+
 from models import db, connect_db, Cupcake
 
-app = Flask(__name__)
 
+app = Flask(__name__)
+CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///cupcakes'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'watercolor12345'
@@ -52,14 +55,12 @@ def get_cupcake(cupcake_id):
 @app.route('/api/cupcakes/<int:cupcake_id>', methods = ["PATCH"])
 def update_cupcake(cupcake_id):
 
-    data = request.json
+    cupcake = Cupcake.query.get_or_404(cupcake_id)
 
-    cupcake = Cupcake(
-        flavor = data['flavor'],
-        rating = data['rating'],
-        size = data['size'],
-        image = data['image' or None]
-    )
+    cupcake.flavor = data['flavor']
+    cupcake.rating = data['rating']
+    cupcake.size = data['size']
+    cupcake.image = data['image']
 
     db.session.add(cupcake)
     db.session.commit()
